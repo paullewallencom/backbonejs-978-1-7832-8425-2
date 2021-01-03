@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Marionette Starter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+    <link href="../libs/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+</head>
+
+<body>
+    <script id="categoryTemplate" type="text/template">
+		<a href="#<%= name%>" ><%= name%> (<%= booksOnCategory %>)</a>
+        <button class="info">Details</buttom>
+    </script>
+    <script id="CatalogLayout" type="text/template">
+			<div id="Cart" class="row-fluid">
+				<div class="row-fluid">
+					<div id="categories" class="span2 well">
+					
+					</div>
+					<div class="span6">
+						<div id="products" class="row-fluid well">
+						</div>
+						<div id="book" class="row-fluid">
+						</div>
+						</div>
+					<div id="order" class="span4">
+					</div>
+				</div>
+			</div>
+    </script>
+    <script id="HistoricLayout" type="text/template">
+		<div id="historicOrders" class="row-fluid">
+				<div class="row-fluid">
+					<div class="span6">
+						<div id="detail" class="row-fluid">
+						<h1>hola<h1>
+						</div>
+					</div>
+				</div>
+		</div>
+    </script>
+    <script id="catalogRow" type="text/template">
+        <td><a class="bookLink" href="#"> <%= id%></a></td>
+        <td> <%= title%></td>
+        <td> <%= author%></td>
+        <td> <%= price%></td>
+        <td>
+            <input class="input-mini" type="text" />
+        </td>
+        <td>
+            <button class="btn btn-primary" type="button">Add</button>
+        </td>
+    </script>
+
+    <script id="orderRow" type="text/template">
+        <td> <%= id%></td>
+        <td> <%= title%></td>
+        <td> <%= price%></td>
+        <td> <%= qty%></td>
+        <td>
+            <button class="btn btn-primary" type="button">Remove</button>
+        </td>
+    </script>
+
+    <script id="historyRow" type="text/template">
+        <td> <%= id%></td>
+        <td> <%= datePlaced%></td>
+        <td> <%= totals.subtotal%></td>
+        <td> <%= totals.tax%></td>
+        <td> <%= totals.total%></td>
+        <td>
+            <button id="details" class="btn btn-primary" type="button">Details</button>
+        </td>
+    </script>
+
+
+    <script id="historyGrid" type="text/template">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date Placed</th>
+                <th>SubTotal</th>
+                <th>Tax</th>
+                <th>Total</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+                <td>
+                    <button id="removeAll" class="btn btn-primary" type="button">Remove All</button>
+                </td>
+            </tr>
+        </tfoot>
+    </script>
+
+    <script id="detailsGrid" type="text/template">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody></tbody>        
+    </script>
+
+    <script id="detailRow" type="text/template">
+        <td> <%= id%></td>
+        <td> <%= title%></td>
+        <td> <%= price%></td>
+        <td> <%= qty%></td>
+    </script>
+
+
+    <script id="orderGrid" type="text/template">
+        <thead class="hide">
+            <tr>
+                <th>id</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot class="hide">
+            <tr class="success">
+			    <td></td>
+				<td></td>
+				<td></td>
+                <td>Subtotal:</td>
+                <td> <%= subtotal%></td>
+			</tr>
+			<tr class="success">
+			    <td></td>
+			    <td></td>
+				<td></td>
+                <td>Tax:</td>
+                <td> <%= tax%></td>
+			</tr><tr class="success">
+			    <td></td>
+			    <td></td>
+				<td></td>
+                <td>Total:</td>
+                <td> <%= total%></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+                <td>
+                    <button id="placeOrder" class="btn btn-primary" type="button">Save</button>
+                </td>
+            </tr>
+        </tfoot>
+    </script>
+    <script id="emptyOrder" type="text/template">
+        <div>
+			<h3>Thanks for buying with us!</h3>
+			<a href="#" class="thumbnail">
+                <img data-src="holder.js/300x200" alt="300x200" style="width: 300px; height: 200px;" src="../images/freeShipping.jpg">
+            </a>
+		</div>
+    </script>
+    <script id="catalogGrid" type="text/template">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </script>
+    <script id="bookDetail" type="text/template">
+      <div class="media">
+              <a class="pull-left" href="#">
+                <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="../images/<%= imageName%>">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading"><%= title %></h4>
+                 <%= description %>
+              </div>
+            </div>
+    </script>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">Books Online</a>
+                <div class="nav-collapse collapse">
+                    <p class="navbar-text pull-right">
+                        Logged in as <a href="#" class="navbar-link">Username</a>
+                    </p>
+                    <ul class="nav">
+                        <li class="active"><a href="#">Catalog</a></li>
+                        <li><a href="#history/orders">Order History</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <div id="main" class="container-fluid">
+        <div id="application">
+        </div>
+        <!--/row-->
+
+        <hr>
+
+        <footer>
+            <span>
+                <p>Contact us</p>
+                <a href="https://twitter.com/rayweb_on">@rayweb_on</a> --- <a href="https://twitter.com/arturo_pst">@arturo_pst</a></span>
+        </footer>
+
+    </div>
+    <div id="modal" class="modal hide fade in" style="display: none">
+    </div>
+
+    <!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="../libs/jquery.js"></script>
+    <script type="text/javascript" src="../libs/underscore.js"></script>
+    <script type="text/javascript" src="../libs/backbone.js"></script>
+    <script type="text/javascript" src="../libs/backbone.marionette.js"></script>
+    <script type="text/javascript" src="../libs/backbone.routefilter.js"></script>
+    <script type="text/javascript" src="../libs/backbone.localStorage.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="app/Books.js"></script>
+    <script src="app/BaseController.js"></script>
+
+    <!-- Cart -->
+    <script src="app/modules/cart/CartApp.js"></script>
+    <script src="app/modules/cart/CartRouter.js"></script>
+    <script src="app/modules/cart/views/Catalog.js"></script>
+
+    <!-- History -->
+    <script src="app/modules/history/HistoryApp.js"></script>
+    <script src="app/modules/history/HistoryRouter.js"></script>
+    <script src="app/modules/history/views/HistoryViews.js"></script>
+
+
+    <script src="app/models/BookModels.js"></script>
+    <script src="app/Books.Data.js"></script>
+
+    <script src="app/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Marionette Starter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+    <link href="../libs/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">Books Online</a>
+                <div class="nav-collapse collapse">
+                    <p class="navbar-text pull-right">
+                        Logged in as <a href="#" class="navbar-link">Username</a>
+                    </p>
+                    <ul class="nav">
+                        <li class="active"><a href="#">Catalog</a></li>
+                        <li><a href="#history/orders">Order History</a></li>
+                    </ul>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+
+	<div id="main" class="container-fluid">
+		<div id="application">
+		</div> 
+    
+        <footer>
+            <span>
+                <p>Contact us</p>
+                <a href="https://twitter.com/rayweb_on">@rayweb_on</a> --- <a href="https://twitter.com/arturo_pst">@arturo_pst</a></span>
+        </footer>
+
+    </div>
+    
+	
+	
+	 
+    
+	
+   
+    <script id="CatalogLayout" type="text/template">
+        <div id="Cart" class="row-fluid">
+            <div class="row-fluid">
+                <div id="categories" class="span2">
+                    <p>Im the Categories Region<p>
+                </div>
+                <div class="span6">
+                    <div id="products" class="row-fluid">
+                         <p>Im the products list Region<p>
+                    </div>
+                    <div id="book" class="row-fluid">
+                         <p>Im the book description Region<p>
+                    </div>
+                </div>
+                <div id="order" class="span4">
+                     <p>Im the Order Region<p>
+                </div>
+            </div>
+        </div>
+    </script>
+   
+
+
+
+    <!-- javascript ================================================== -->
+ 
+    <script type="text/javascript" src="../libs/jquery.js"></script>
+    <script type="text/javascript" src="../libs/underscore.js"></script>
+    <script type="text/javascript" src="../libs/backbone.js"></script>
+    <script type="text/javascript" src="../libs/backbone.marionette.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+
+    
+    <script src="bookstore.js"></script>
+
+</body>
+</html>
